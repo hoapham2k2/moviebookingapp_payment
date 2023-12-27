@@ -17,12 +17,20 @@ const vnpayInstance = new VNPay({
   returnUrl: vnp_Returnurl, // return url
 });
 
-app.get("/", async (req, res) => {
+app.get("/", async (req, res, next) => {
+  // Build payment url with params (ORDER_ID, AMOUNT, BANK_CODE, IP, ...)
+
+  //get order id from req.query
+  const ORDER_ID = req.query.order_id; // https://localhost:3000/?order_id=123456
+  if (!ORDER_ID) {
+    return res.status(400).send("Missing order id");
+  }
+
   const urlString = await vnpayInstance.buildPaymentUrl({
     vnp_Amount: 100000, // amount in VND
     vnp_IpAddr: req.ip, // user ip address
-    vnp_TxnRef: "111111", // ma hoa don
-    vnp_OrderInfo: `Thanh toan cho ma GD: `,
+    vnp_TxnRef: ORDER_ID, // order id
+    vnp_OrderInfo: `Thanh toan mua ve xem phim`, // order info
   });
   console.log(urlString);
 
