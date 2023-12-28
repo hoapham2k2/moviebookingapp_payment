@@ -6,8 +6,15 @@ const port = 3000;
 const vnp_TmnCode = "2SSQ88M4";
 const vnp_HashSecret = "NVPJRJWYZKKQBVHVDIOOGSPSTNYZOZRD";
 const vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-const vnp_Returnurl = "http://localhost:3000/order/vnpay_return";
-const vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
+//check env production or development
+if (process.env.NODE_ENV === "production") {
+  vnp_Returnurl = "https://moviebookingapp.vercel.app/";
+} else {
+  vnp_Returnurl = "http://localhost:8100/";
+}
+
+vnp_Returnurl +="paymentStatus"
+
 
 // Create instance
 const vnpayInstance = new VNPay({
@@ -35,12 +42,6 @@ app.get("/", async (req, res, next) => {
   console.log(urlString);
 
   await res.redirect(urlString);
-});
-
-app.get("/order/vnpay_return", async (req, res) => {
-  // `req.query` is the query string from VNPay
-  const verifyResult = await vnpayInstance.verifyReturnUrl(req.query);
-  console.log(verifyResult);
 });
 
 app.listen(port, () => {
