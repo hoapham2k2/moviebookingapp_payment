@@ -28,7 +28,7 @@ app.get("/", async (req, res, next) => {
   // Build payment url with params (ORDER_ID, AMOUNT, BANK_CODE, IP, ...)
 
   //get order id from req.query
-  const ORDER_ID = req.query.order_id; // https://localhost:3000/?order_id=123456
+  const ORDER_ID = req.query.order_id; 
   if (!ORDER_ID) {
     return res.status(400).send("Missing order id");
   }
