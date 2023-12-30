@@ -8,7 +8,7 @@ const vnp_HashSecret = "NVPJRJWYZKKQBVHVDIOOGSPSTNYZOZRD";
 const vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 //check env production or development
 if (process.env.NODE_ENV === "production") {
-  vnp_Returnurl = "javascript:close_window();";
+  vnp_Returnurl = "http://moviebookingapp.vercel.app/";
 } else {
   vnp_Returnurl = "http://localhost:8100/";
 }
