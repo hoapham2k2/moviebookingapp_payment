@@ -8,13 +8,12 @@ const vnp_HashSecret = "NVPJRJWYZKKQBVHVDIOOGSPSTNYZOZRD";
 const vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 //check env production or development
 if (process.env.NODE_ENV === "production") {
-  vnp_Returnurl = "https://moviebookingapp.vercel.app/";
+  vnp_Returnurl = "javascript:close_window();";
 } else {
   vnp_Returnurl = "http://localhost:8100/";
 }
 
-vnp_Returnurl +="paymentStatus"
-
+vnp_Returnurl += "paymentStatus";
 
 // Create instance
 const vnpayInstance = new VNPay({
@@ -28,7 +27,7 @@ app.get("/", async (req, res, next) => {
   // Build payment url with params (ORDER_ID, AMOUNT, BANK_CODE, IP, ...)
 
   //get order id from req.query
-  const ORDER_ID = req.query.order_id; 
+  const ORDER_ID = req.query.order_id;
   if (!ORDER_ID) {
     return res.status(400).send("Missing order id");
   }
